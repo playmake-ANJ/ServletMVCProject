@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>MyJSP01</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+  	<servlet-name>UserController</servlet-name>
+    <servlet-class>zsc.ysh.mvc.controller.UserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserController</servlet-name>
+  	<url-pattern>*.anj</url-pattern>
+  </servlet-mapping>
+  <!-- 配置拦截器 -->
+  <filter>
+  	<filter-name>MyFilter</filter-name>
+  	<filter-class>zsc.ysh.mvc.filter.MyFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>MyFilter</filter-name>
+  	<!-- 拦截的页面为首页 -->
+  	<url-pattern>/index.jsp</url-pattern>
+  </filter-mapping>
+  <filter>
+  	<filter-name>IsLoginFilter</filter-name>
+  	<filter-class>zsc.ysh.mvc.filter.IsLoginFilter</filter-class>
+  	<!-- 拦截多个页面 -->
+  	<init-param>
+  		<param-name>permission</param-name>
+  		<!-- 这些页面要在用户登录后才能访问 -->
+  		<param-value>reg.jsp,update.jsp,userview.jsp,updateParpe.anj,delete.anj,Online.anj</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>IsLoginFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+</web-app>
